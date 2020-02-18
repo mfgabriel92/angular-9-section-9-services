@@ -5,11 +5,13 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
+import { LoggingService } from '../logging.service';
 
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
-  styleUrls: ['./new-account.component.scss']
+  styleUrls: ['./new-account.component.scss'],
+  providers: [LoggingService]
 })
 export class NewAccountComponent {
   @Output()
@@ -21,14 +23,13 @@ export class NewAccountComponent {
   @ViewChild('accountStatusRef', { static: true })
   status: ElementRef;
 
+  constructor(private loggigng: LoggingService) {}
+
   onCreateAccount() {
     this.newAccount.emit({
       name: this.name.nativeElement.value,
       status: this.status.nativeElement.value
     });
-
-    console.log(
-      `A server status's changed to ${this.status.nativeElement.value}`
-    );
+    this.loggigng.logStatusChange(this.status.nativeElement.value);
   }
 }
