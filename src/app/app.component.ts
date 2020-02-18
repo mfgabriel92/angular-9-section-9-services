@@ -6,5 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'section-ix-services';
+  accounts = [
+    {
+      name: 'Master Account',
+      status: 'active'
+    },
+    {
+      name: 'Test Account',
+      status: 'inactive'
+    }
+  ];
+
+  onAccountAdded(account: { name: string; status: string }) {
+    this.accounts.push(account);
+  }
+
+  onStatusChanged(update: { id: number; status: string }) {
+    this.accounts[update.id].status = update.status;
+  }
 }
